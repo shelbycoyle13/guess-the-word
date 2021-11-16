@@ -1,3 +1,4 @@
+// The unordered list where the player’s guessed letters will appear //
 const guessedLettersList = document.querySelector(".guessed-letters");
 const guessButton = document.querySelector(".guess");
 const textInputBox = document.querySelector(".letter");
@@ -8,6 +9,8 @@ const guessedLetterMessage = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
 
 const word = "magnolia";
+// This array will contain all the letters the player guesses //
+const guessedLetters = [];
 
 // Display symbols for placeholders for the secret word // 
 
@@ -22,11 +25,50 @@ const mysteryWord = function (word) {
 
 mysteryWord(word);
 
+// Event listener for the Guess button //
+
 guessButton.addEventListener("click", function(e) {
+    // Stops the page from refreshing and reloading everything //
     e.preventDefault();
+    // We are emptying the message element//
+    guessedLetterMessage.innerText = "";
+    // We are going to grab what was entered in the text box //
     const guessValue = textInputBox.value;
-    console.log(guessValue);
+    // Let's make sure that it is a single letter //
+    const goodGuess = validateInput(guessValue);
+    
+    if (goodGuess) {
+        // We've got a letter! Let's guess! //
+        makeGuess(guessValue);
+    }
+      
     textInputBox.value = "";
-});
 
+    });
 
+// Validating the player's input //
+
+const validateInput = function (guessValue) {
+    const acceptedLetter = /[a-zA-Z]/;
+    if (guessValue.length === 0) {
+        guessedLetterMessage.innerText = ("Please enter a letter!"); 
+    } else if (guessValue.length > 1) {
+        guessedLetterMessage.innerText = ("You can only enter one letter at a time!");
+    } else if (!guessValue.match(acceptedLetter)) {
+        guessedLetterMessage.innerText = ("I'm sorry, but you may only enter a letter from A to Z!");
+    } else {
+        return guessValue;
+    }
+};
+
+// Function to capture the player's input //
+
+const makeGuess = function (guessValue) {
+    guessValue = guessValue.toUpperCase();
+    if (guessedLetters.includes(guessValue)) {
+        guessedLetterMessage.innerText = ("You've already guessed that letter!");
+    } else {
+        guessedLetters.push(guessValue);
+        console.log(guessedLetters);
+    }
+};
