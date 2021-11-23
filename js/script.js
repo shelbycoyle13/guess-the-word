@@ -72,6 +72,7 @@ const makeGuess = function (guessValue) {
         console.log(guessedLetters);
         // Calling this function here so the letter displays when it hasn’t been guessed before //
         showPlayerGuesses();
+        updateWordInProgress(guessedLetters);
     }
 };
 
@@ -93,4 +94,21 @@ const updateWordInProgress = function (guessedLetters) {
     const wordArray = wordUpper.split("");
     console.log("wordUpper is logged out", wordUpper);
     console.log("wordArray is logged out", wordArray);
-    };
+    const correctLetters = [];
+    for (const letter of wordArray) {
+     if (guessedLetters.includes(letter)) {
+        correctLetters.push(letter.toUpperCase());
+     } else {
+        correctLetters.push("●");
+    }
+    wordInProgress.innerText = correctLetters.join("");
+    checkTheWin();
+    }
+};
+
+const checkTheWin = function () {
+    if (word.toUpperCase() === wordInProgress.innerText) {
+        guessedLetterMessage.classList.add("win");
+        guessedLetterMessage.innerHTML = '<p class="highlight">You guessed correct the word! Congrats!</p>';
+    }
+};
