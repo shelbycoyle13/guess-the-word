@@ -81,10 +81,11 @@ const makeGuess = function (guessValue) {
     } else {
         guessedLetters.push(guessValue);
         console.log(guessedLetters);
+        
+        countGuessesRemaining(guessValue);
         // Calling this function here so the letter displays when it hasn’t been guessed before //
         showPlayerGuesses();
         updateWordInProgress(guessedLetters);
-        countGuessesRemaining(guessValue);
     }
 };
 
