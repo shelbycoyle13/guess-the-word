@@ -11,7 +11,7 @@ const playAgainButton = document.querySelector(".play-again");
 let remainingGuesses = 8;
 let word = "magnolia";
 // This array will contain all the letters the player guesses, not shown on the webpage, only the console //
-const guessedLetters = [];
+let guessedLetters = [];
 
 const getWord = async function () {
     const response = await fetch ("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
@@ -155,7 +155,7 @@ const startOver = function () {
 playAgainButton.addEventListener("click", function () {
     // Function to reset all values and get a new word //
     guessedLetterMessage.classList.remove("win");
-    const guessedLetters = [];
+    guessedLetters = [];
     guessedLetterMessage.innerText = "";
     guessedLettersList.innerText = "";
     remainingGuesses = 8;
